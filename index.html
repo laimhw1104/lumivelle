@@ -70,18 +70,31 @@
         nav {
             display: flex;
             justify-content: space-between;
+			align-items: center;
             padding: 10px 50px;
             background-color: var(--bg-color);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
 			height: 80px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
-        .nav-right { display: flex; gap: 30px; align-items: center; }
+        .nav-right { display: flex; gap: 25px; align-items: center; }
         
         .nav-links { display: flex; gap: 20px; }
+
+		.menu-icon {
+		    display: none; /* Hidden on desktop */
+		    flex-direction: column;
+		    gap: 5px;
+		    cursor: pointer;
+		}
+		
+		.menu-icon span {
+		    width: 25px;
+		    height: 2px;
+		    background-color: var(--text-main);
+		}
 		
         .nav-links a { 
 			font-family: var(--font-heading);		
@@ -196,16 +209,24 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
-			.logo {font-size: 2.4rem; /* Smaller logo for mobile */    }
-			.nav-links {display: none; /* Recommended: Hide links on mobile for a clean look, or use a burger menu */    }
-			.hero h1.lang-en {font-size: 3.5rem !important; /* Scale down the script font */margin-bottom: 10px;}
-		    .hero h1.lang-tc {font-size: 1.8rem !important;letter-spacing: 2px;}
-			section {padding: 60px 20px; /* Tighten up section spacing */}
-			.hero {height: 60vh; /* Shorter hero on mobile */}
-            .enquiry-container { padding: 25px 15px; }
-			
+            nav { padding: 0 20px; height: 70px; }
+			.logo {font-size: 2.2rem; /* Smaller logo for mobile */    }
+			.menu-icon {display: flex; /* Show hamburger on mobile */    }
+			.nav-links {display: none; position: absolute; top: 70px; left: 0; width: 100%; background-color: var(--bg-color); flex-direction: column; text-align: center; padding: 20px 0; box-shadow: 0 5px 10px rgba(0,0,0,0,05);}   }
+			.nav-links.active {display: flex;    }
+			.nav-links a {
+		        padding: 15px 0;
+		        border-bottom: 1px solid #eee;
+		        width: 80%;
+		        margin: 0 auto;
+		    }
+		    .lang-toggle-btn {
+		        font-size: 0.7rem;
+		        padding: 4px 8px;
+		        order: -1; /* This ensures the toggle stays to the left of the hamburger */
+		    }			
         }
+		
 		.submit-btn {width: 100%; -webkit-appearance: none; /* Fixes iOS button styling issues */}
 		
 		/* Ensure images fit perfectly inside the portfolio boxes */
@@ -339,12 +360,19 @@
 			</a>
 		</div>
         <div class="nav-right">
-            <div class="nav-links">
-                <a href="#services" class="lang-en">Services</a><a href="#services" class="lang-tc">服務</a>
-                <a href="#portfolio" class="lang-en">Portfolio</a><a href="#portfolio" class="lang-tc">作品</a>
-                <a href="#enquiry" class="lang-en">Enquiry</a><a href="#enquiry" class="lang-tc">查詢</a>
-            </div>
-            <button id="langToggle" class="lang-toggle-btn">繁體中文</button>
+			<button id="langToggle" class="lang-toggle-btn">繁體中文</button>
+
+			<div class="menu-icon" id="menuIcon">
+	            <span></span>
+	            <span></span>
+	            <span></span>
+	        </div>
+			
+			<div class="nav-links" id="navLinks">
+	            <a href="#services" class="lang-en">Services</a><a href="#services" class="lang-tc">服務</a>
+	            <a href="#faq" class="lang-en">FAQ</a><a href="#faq" class="lang-tc">常見問題</a>
+	            <a href="#enquiry" class="lang-en">Enquiry</a><a href="#enquiry" class="lang-tc">查詢</a>
+	        </div>
         </div>
     </nav>
 
@@ -606,6 +634,21 @@
                 langToggleBtn.textContent = '繁體中文';
             }
         });
+
+		// --- Mobile Menu Toggle ---
+		const menuIcon = document.getElementById('menuIcon');
+		const navLinks = document.getElementById('navLinks');
+		
+		menuIcon.addEventListener('click', () => {
+		    navLinks.classList.toggle('active');
+		});
+		
+		// Close menu when a link is clicked
+		document.querySelectorAll('.nav-links a').forEach(link => {
+		    link.addEventListener('click', () => {
+		        navLinks.classList.remove('active');
+		    });
+		});
 
         // --- WhatsApp Logic ---
         const whatsappForm = document.getElementById('whatsappForm');
