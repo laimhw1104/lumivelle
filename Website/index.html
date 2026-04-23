@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumivelle | Wedding Guestbook Service Hong Kong</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <style>
+        /* --- Color Palette & Variables --- */
+        :root {
+            --bg-color: #FAF6F3; /* Soft cream */
+            --accent-color: #DDA7A5; /* Pastel pink/dusty rose */
+            --text-main: #4A4543; /* Soft dark brown/grey */
+            --white: #FFFFFF;
+            --wa-green: #DDA7A5; /* Official WhatsApp Green */
+			
+			/* Font Variables for easy management */
+            --font-fancy: 'Pinyon Script', cursive;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Playfair Display', serif;
+            --font-zh: 'Noto Serif HK', serif;
+        }
+
+        /* --- Global Styles --- */
+        body {
+			font-family: var(--font-body), var(--font-zh), serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+        }
+
+        /* Language Hiding Logic */
+        body.lang-en-active .lang-tc { display: none !important; }
+        body.lang-tc-active .lang-en { display: none !important; }
+		
+		/* --- Logo & Headings --- */		
+		.logo { 
+            font-family: var(--font-fancy); 
+            font-size: 2.5rem; /* Pinyon Script needs to be larger to be legible */
+            color: var(--accent-color);
+            letter-spacing: 0; /* Scripts don't need spacing */
+        }
+
+		h1, h2, h3 { 
+            font-family: var(--font-heading);
+            font-weight: 500; 
+            margin-bottom: 0.5rem; 
+        }
+		
+		/* Hero Text Styling */
+        .hero h1.lang-en {
+            font-family: var(--font-fancy);
+            font-size: 5.5rem; /* Very large and elegant */
+            color: var(--accent-color);
+            margin-bottom: -10px; /* Pull the subtitle closer */
+        }
+        
+        /* Chinese Hero text stays Serif for elegance */
+        .hero h1.lang-tc {
+            font-family: var(--font-zh);
+            font-weight: 300;
+            letter-spacing: 5px;
+        }		
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 50px;
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .nav-right { display: flex; gap: 30px; align-items: center; }
+        
+        .nav-links { display: flex; gap: 20px; }
+		
+        .nav-links a { 
+			font-family: var(--font-heading);		
+            text-decoration: none; color: var(--text-main); 
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+            /* transition: color 0.3s; */
+        }
+		
+		/* --- FAQ & Form styling --- */
+        .faq-question { font-family: var(--font-heading); font-weight: 600; }
+        
+        .submit-btn { 
+            font-family: var(--font-heading); 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Testimonial Quotes */
+        .quote {
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+        .nav-links a:hover { color: var(--accent-color); }
+
+        .lang-toggle-btn {
+            background: none; border: 1px solid var(--accent-color); color: var(--accent-color);
+            padding: 6px 15px; border-radius: 20px; cursor: pointer;
+            font-family: inherit; font-size: 0.8rem; transition: 0.3s;
+        }
+        .lang-toggle-btn:hover { background-color: var(--accent-color); color: var(--white); }
+
+        /* --- Hero Section --- */
+		.hero {
+			position: relative;
+			height: 80vh; /* Takes up 80% of the screen height */
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			
+			/* Replace 'hero-bg.jpg' with your actual photo filename */
+			background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+						url('hero-bg.jpg'); 
+			
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed; /* Creates a subtle parallax scrolling effect */
+			padding: 20px;
+		}
+
+		.hero h1 {
+			font-size: 4rem;
+			color: var(--text-main); /* Darker text for contrast */
+			margin-bottom: 10px;
+			text-shadow: 1px 1px 2px rgba(255,255,255,0.8); /* Soft glow to ensure readability */
+		}
+
+		.hero p {
+			font-size: 1.4rem;
+			color: var(--text-main);
+			font-weight: 400;
+		}
+
+        /* --- Content Sections --- */
+        section { padding: 100px 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
+
+        /* Services Grid */
+        .service-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; margin-top: 50px;
+        }
+        .service-card {
+            background: var(--white); padding: 40px 20px; border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-top: 3px solid var(--accent-color);
+        }
+
+        /* Portfolio */
+        .portfolio-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px; margin-top: 40px;
+        }
+        .portfolio-item {
+            background-color: #EAE3DE; height: 250px; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center; color: #AAA;
+        }
+
+        /* --- Enquiry Form --- */
+        .enquiry-container {
+            background: var(--white); padding: 50px; border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-top: 40px;
+        }
+        form { display: grid; gap: 20px; text-align: left; max-width: 600px; margin: 0 auto; }
+        .form-group { display: flex; flex-direction: column; }
+        label { font-size: 0.85rem; margin-bottom: 8px; color: #888; text-transform: uppercase; }
+
+        input, select, textarea {
+            width: 100%; padding: 12px; border: 1px solid #EAE3DE;
+            border-radius: 4px; font-family: inherit; box-sizing: border-box;
+        }
+
+        .submit-btn {
+            background-color: var(--wa-green); color: white; border: none; padding: 18px;
+            font-size: 1rem; border-radius: 4px; cursor: pointer;
+            transition: 0.3s; font-weight: 600; letter-spacing: 1px; margin-top: 10px;
+        }
+        .submit-btn:hover { background-color: #128C7E; transform: translateY(-2px); }
+
+        /* --- Footer --- */
+        footer { padding: 50px; text-align: center; font-size: 0.8rem; background-color: var(--white); border-top: 1px solid #EEE; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
+            .hero h1 { font-size: 2.5rem; }
+            .enquiry-container { padding: 30px 20px; }
+        }
+		/* Ensure images fit perfectly inside the portfolio boxes */
+		.portfolio-item {
+			overflow: hidden; /* Clips the image to the border radius */
+			height: 300px;    /* You can adjust this height */
+		}
+
+		.portfolio-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover; /* This crops the image to fill the space beautifully */
+			transition: transform 0.5s ease;
+		}
+
+		.portfolio-item img:hover {
+			transform: scale(1.05); /* A subtle zoom effect when hovering */
+		}
+		
+		/* Testimonial Section Styling */
+		.testimonial-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 30px;
+			margin-top: 50px;
+		}
+
+		.testimonial-card {
+			background-color: var(--white);
+			padding: 40px 30px;
+			border-radius: 12px;
+			box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+			transition: transform 0.3s ease;
+			border: 1px solid #F0EBE8; /* Very subtle border */
+		}
+
+		.testimonial-card:hover {
+			transform: translateY(-5px);
+		}
+
+		.quote {
+			font-style: italic;
+			color: #666;
+			font-size: 1.05rem;
+			margin-bottom: 20px;
+			position: relative;
+		}
+
+		/* Subtle decorative quotation mark */
+		.quote::before {
+			content: '"';
+			font-family: 'Playfair Display', serif;
+			font-size: 4rem;
+			color: var(--accent-color);
+			opacity: 0.2;
+			position: absolute;
+			top: -20px;
+			left: -10px;
+		}
+
+		.client-name {
+			font-weight: 600;
+			font-size: 0.9rem;
+			letter-spacing: 1px;
+			color: var(--accent-color);
+			text-transform: uppercase;
+		}
+		
+		/* FAQ Section Styling */
+		.faq-container {
+			max-width: 700px;
+			margin: 40px auto;
+			text-align: left;
+		}
+
+		.faq-item {
+			border-bottom: 1px solid #EAE3DE;
+			padding: 15px 0;
+		}
+
+		.faq-question {
+			font-weight: 600;
+			cursor: pointer;
+			color: var(--text-main);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px 0;
+			transition: color 0.3s;
+		}
+
+		.faq-question:hover {
+			color: var(--accent-color);
+		}
+
+		/* Adds a small "+" icon */
+		.faq-question::after {
+			content: '+';
+			font-size: 1.2rem;
+			color: var(--accent-color);
+		}
+
+		.faq-answer {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.3s ease-out;
+			color: #777;
+			font-size: 0.95rem;
+		}
+
+		/* When the item is "open" */
+		.faq-item.active .faq-answer {
+			max-height: 200px; /* Adjust based on answer length */
+			padding-bottom: 15px;
+		}
+
+		.faq-item.active .faq-question::after {
+			content: '-';
+		}
+    </style>
+	
+</head>
+<body class="lang-en-active">
+
+    <nav>
+		<div class="logo">
+			<a href="/">
+				<img src="logo1.png" alt="Lumivelle Logo" style="height: 100px; width: auto;">
+			</a>
+		</div>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="#services" class="lang-en">Services</a><a href="#services" class="lang-tc">服務</a>
+                <a href="#portfolio" class="lang-en">Portfolio</a><a href="#portfolio" class="lang-tc">作品</a>
+                <a href="#enquiry" class="lang-en">Enquiry</a><a href="#enquiry" class="lang-tc">查詢</a>
+            </div>
+            <button id="langToggle" class="lang-toggle-btn">繁體中文</button>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1 class="lang-en">Every Fleeting Moment Deserves a Lifetime of Memory</h1>
+        <h1 class="lang-tc">婚禮上的每一秒，都值得被好好紀錄</h1>
+        <p class="lang-en">Premium Wedding Guestbook Service in Hong Kong. Elegant, simple, and unforgettable.</p>
+        <p class="lang-tc">香港優質即影即有婚禮留言相簿服務。優雅、簡約、令人難忘。</p>
+    </div>
+
+    <section id="services">
+        <h2 class="lang-en">Our Services</h2><h2 class="lang-tc">我們的服務</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <h3 class="lang-en">Instax & Album</h3><h3 class="lang-tc">即影即有相機及相簿</h3>
+                <p class="lang-en">Generous supply of Fujifilm Instax films tailored to your guest count and a premium guestbook.</p>
+                <p class="lang-tc">根據您的賓客人數提供充足的 Fujifilm Instax 相紙及精美留言冊。</p>
+            </div>
+            <div class="service-card">
+                <h3 class="lang-en">Station Styling</h3><h3 class="lang-tc">專屬佈置</h3>
+                <p class="lang-en">Elegant decoration of the station to match your wedding theme.</p>
+                <p class="lang-tc">優雅的留言區佈置，完美配合您的婚禮主題。</p>
+            </div>
+            <div class="service-card">
+                <h3 class="lang-en">On-Site Support</h3><h3 class="lang-tc">專業現場支援</h3>
+                <p class="lang-en">Two dedicated staff members to assist photography and guests.</p>
+                <p class="lang-tc">兩位專業工作人員現場協助拍攝及引導賓客。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <h2 class="lang-en">Our Works</h2><h2 class="lang-tc">我們的作品</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">Image Placeholder 1</div>
+            <div class="portfolio-item">Image Placeholder 2</div>
+            <div class="portfolio-item">Image Placeholder 3</div>
+        </div>
+    </section>
+
+	<section id="testimonials">
+		<h2 class="lang-en">Words of Love</h2>
+		<h2 class="lang-tc">新人評價</h2>
+		
+		<div class="testimonial-grid">
+			<div class="testimonial-card">
+				<p class="quote lang-en">"Lumivelle made our wedding night so special! The staff were so helpful, and looking at the guestbook the next day brought us to tears. Highly recommended!"</p>
+				<p class="quote lang-tc">「Lumivelle 讓我們的婚禮變得非常特別！工作人員非常幫忙，第二天看著留言冊讓我們感動落淚。強烈推薦！」</p>
+				<p class="client-name">- Sarah & Kelvin</p>
+			</div>
+
+			<div class="testimonial-card">
+				<p class="quote lang-en">"The station decoration was breathtaking and matched our floral theme perfectly. Our guests loved the Instax photos—it was the highlight of the cocktail hour!"</p>
+				<p class="quote lang-tc">「留言區的佈置非常美，完美配合我們的花藝主題。賓客們非常喜歡即影即有相片，這絕對是雞尾酒時段的焦點！」</p>
+				<p class="client-name">- Chloe & James</p>
+			</div>
+
+			<div class="testimonial-card">
+				<p class="quote lang-en">"Having 2 staff members on-site made a huge difference. They were so professional, ensuring every guest was photographed and the album was kept neat and beautiful."</p>
+				<p class="quote lang-tc">「現場有兩位工作人員真的大不相同。他們非常專業，確保每位賓客都有拍照，並讓相簿保持整潔美觀。」</p>
+				<p class="client-name">- Mandy & Ryan</p>
+			</div>
+
+			<div class="testimonial-card">
+				<p class="quote lang-en">"The album quality is premium. It's now our favorite keepsake from the wedding. Thank you Lumivelle for capturing these raw, happy moments!"</p>
+				<p class="quote lang-tc">「相簿的質感非常高級。這現在是我們婚禮中最喜愛的紀念品。感謝 Lumivelle 為我們捕捉了這些最真實、快樂的時刻！」</p>
+				<p class="client-name">- Jessica & Hin</p>
+			</div>
+			
+			<div class="testimonial-card">
+				<p class="quote lang-en">"Good Job!"</p>
+				<p class="quote lang-tc">「非常高級。」</p>
+				<p class="client-name">- Mui & Jai</p>
+			</div>
+		</div>
+	</section>
+	
+	<section id="faq">
+		<h2 class="lang-en">Frequently Asked Questions</h2>
+		<h2 class="lang-tc">常見問題</h2>
+
+		<div class="faq-container">
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">What is included in the your packages?</span>
+					<span class="lang-tc">標準套餐包括什麼服務？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">All of our packages include Fujifilm Instax (Mini) prints, a customized guestbook, station decoration, signage pen, and 2 professional staff members. For rates and charges, we will send you a Rate Card upon submitting a booking enquiry.</p>
+					<p class="lang-tc">我們的套餐包括無限量 Fujifilm Instax Mini 相紙、客製化留言相簿、留言區佈置、簽名筆，以及兩位專業工作人員服務。請經 WhatsApp 傳送您的婚禮資料以獲取報價詳情。</p>
+				</div>
+			</div>
+
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">How many photos are included?</span>
+					<span class="lang-tc">我們可以拍攝多少張相片？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">We provide a generous, fixed amount of films based on your estimated guest count and package of your selection to complete your album, while ensuring every guest has a chance to take home one of their favourite prints.</p>
+					<p class="lang-tc">我們會根據您所選擇的套餐及預計賓客人數提供充足且固定數量的相紙，確保相簿能夠完整，以及每位賓客都能帶走一張最喜歡的相片。</p>
+				</div>
+			</div>
+			
+			<div class="faq-item">
+                <div class="faq-question">
+					<span class="lang-en">Is the film supply unlimited?</span>
+					<span class="lang-tc">相紙供應是無限量的嗎？</span>
+				</div>
+                <div class="faq-answer">
+                    <p class="lang-en">To ensure a neat and organized guestbook and to manage on-site logistics, we provide a pre-agreed quantity of films that effectively covers your guest list.</p>
+                    <p class="lang-tc">為確保留言相簿質素並有效管理現場運作，我們會提供事先約定好的相紙數量，足以覆蓋您的賓客名單。</p>
+                </div>
+            </div>		
+
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">Do we need to provide a table or power?</span>
+					<span class="lang-tc">我們需要提供桌子或電源嗎？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">We usually request one long table from the venue. Since Instax cameras are battery-operated, we generally do not require a power outlet.</p>
+					<p class="lang-tc">我們通常需要場地提供一張長桌。由於即影即有相機使用電池運作，我們一般不需要電源。</p>
+				</div>
+			</div>
+
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">Can we customize the guestbook?</span>
+					<span class="lang-tc">我們可以自訂留言相簿嗎？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">Yes! For your album, you may select your own cover photo, the colour and text fonts of our selection. For design reference, please check out our portfolio or send us an enquiry.</p>
+					<p class="lang-tc">可以！留言相簿封面的文字、相片均可由您自行選擇，另外相簿亦有幾種顏色可供選擇，詳情可前往我們的社交平台參考或聯絡我們。</p>
+				</div>
+			</div>
+
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">What does the station decoration include?</span>
+					<span class="lang-tc">留言區佈置包括什麼？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">Every wedding is special, so we ensure that the setup is tailored to you! Items may include (but not limited to) table linens, silk floral arrangements, decorative photo frames, and elegant signage that matches your wedding theme. </p>
+					<p class="lang-tc">我們認為每個婚禮都是特別的，所以我們會專門訂製屬於您的佈置。我們提供(但不限於)檯布、絲花佈置、裝飾相框以及符合簡約粉色系主題的優雅指示牌。</p>
+				</div>
+			</div>
+
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">How many staff will be there?</span>
+					<span class="lang-tc">現場會有多少位工作人員？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">We always provide two staff members. One focuses on photography and camera technicals, while the other assists guests with sticking photos and writing messages.</p>
+					<p class="lang-tc">我們固定提供兩位工作人員。一位專注於拍攝及相機運作，另一位則協助賓客黏貼相片及撰寫留言。</p>
+				</div>
+			</div>
+
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">How early will you arrive to set up?</span>
+					<span class="lang-tc">你們會提前多久到達現場佈置？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">Our team arrives an hour before the service starts to ensure the station is perfectly decorated and ready for the first guest.</p>
+					<p class="lang-tc">我們的團隊會於服務開始前一小時到達，確保佈置完美並準備好迎接第一位賓客。</p>
+				</div>
+			</div>
+
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">What if the wedding is outdoor?</span>
+					<span class="lang-tc">如果是戶外婚禮怎麼辦？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">We love outdoor weddings! In case of rain, we just require a covered area or a backup plan to protect the guestbook and equipment.</p>
+					<p class="lang-tc">我們非常歡迎戶外婚禮！只要有遮蓋處或遇雨時的備案，以保護留言冊及器材即可。</p>
+				</div>
+			</div>
+
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">How far in advance should we book?</span>
+					<span class="lang-tc">我們應該提前多久預約？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">Popular wedding dates in Hong Kong fill up quickly. To ensure the highest quality of our service, please confirm your booking at least one month in advance before your Big Day.</p>
+					<p class="lang-tc">香港熱門的婚禮日子通常很快爆滿，為了提供最佳的服務體驗，請於服務使用日前至少一個月作出預約。</p>
+				</div>
+			</div>
+
+			<div class="faq-item">
+				<div class="faq-question">
+					<span class="lang-en">How do we confirm the booking?</span>
+					<span class="lang-tc">如何確認預約？</span>
+				</div>
+				<div class="faq-answer">
+					<p class="lang-en">After checking availability via WhatsApp, a 50% deposit is required to secure your date. The remaining balance is settled within 7 days after the wedding.</p>
+					<p class="lang-tc">經 WhatsApp 確認檔期後，需支付 50% 定金以保留日子。尾款請於完成婚禮後七天之內結清。</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    <section id="enquiry">
+        <h2 class="lang-en">Get in Touch</h2><h2 class="lang-tc">聯絡我們</h2>
+        <p class="lang-en">Send us your details via WhatsApp for a quick quote.</p>
+        <p class="lang-tc">經 WhatsApp 傳送您的婚禮資料以獲取報價。</p>
+
+        <div class="enquiry-container">
+            <form id="whatsappForm">
+                <div class="form-group">
+                    <label class="lang-en">Your Name</label><label class="lang-tc">您的姓名</label>
+                    <input type="text" id="clientName" required>
+                </div>
+                <div class="form-group">
+                    <label class="lang-en">Wedding Date</label><label class="lang-tc">婚禮日期</label>
+                    <input type="date" id="weddingDate" required>
+                </div>
+                <div class="form-group">
+                    <label class="lang-en">Wedding Venue</label><label class="lang-tc">婚禮地點</label>
+                    <input type="text" id="weddingVenue" required>
+                </div>
+                <div class="form-group">
+                    <label class="lang-en">Session</label><label class="lang-tc">時段</label>
+                    <select id="sessionType">
+                        <option value="Luncheon">Luncheon / 午宴</option>
+                        <option value="Dinner">Dinner / 晚宴</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="lang-en">Approx. Guests</label><label class="lang-tc">預計賓客數目</label>
+                    <input type="number" id="guestCount" placeholder="e.g. 150">
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span class="lang-en">Send via WhatsApp</span>
+                    <span class="lang-tc">經 WhatsApp 傳送查詢</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Lumivelle Hong Kong. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // --- Language Toggle Logic ---
+        const langToggleBtn = document.getElementById('langToggle');
+        const body = document.body;
+
+        langToggleBtn.addEventListener('click', function() {
+            if (body.classList.contains('lang-en-active')) {
+                body.classList.replace('lang-en-active', 'lang-tc-active');
+                langToggleBtn.textContent = 'English';
+            } else {
+                body.classList.replace('lang-tc-active', 'lang-en-active');
+                langToggleBtn.textContent = '繁體中文';
+            }
+        });
+
+        // --- WhatsApp Logic ---
+        const whatsappForm = document.getElementById('whatsappForm');
+        whatsappForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const myNumber = "56074779"; // <--- CHANGE THIS TO YOUR REAL NUMBER
+            
+            const name = document.getElementById('clientName').value;
+            const date = document.getElementById('weddingDate').value;
+            const venue = document.getElementById('weddingVenue').value;
+            const session = document.getElementById('sessionType').value;
+            const guests = document.getElementById('guestCount').value;
+
+            let message = "";
+            if (body.classList.contains('lang-en-active')) {
+                message = `Hello Lumivelle! I'd like to enquire about your services:\n\n• Name: ${name}\n• Date: ${date}\n• Venue: ${venue}\n• Session: ${session}\n• Guests: ${guests}`;
+            } else {
+                message = `您好 Lumivelle！我想查詢婚禮留言冊服務：\n\n• 姓名: ${name}\n• 日期: ${date}\n• 地點: ${venue}\n• 時段: ${session}\n• 人數: 約 ${guests} 位`;
+            }
+
+            window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, '_blank');
+        });
+		
+		// --- FAQ Accordion Logic ---
+		document.querySelectorAll('.faq-question').forEach(question => {
+			question.addEventListener('click', () => {
+				const item = question.parentElement;
+				item.classList.toggle('active');
+			});
+		});
+    </script>
+</body>
+</html>
