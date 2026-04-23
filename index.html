@@ -37,8 +37,11 @@
 		/* --- Logo & Headings --- */		
 		.logo { 
             font-family: var(--font-fancy); 
-            font-size: 2.5rem; /* Pinyon Script needs to be larger to be legible */
+            font-size: 3.2rem; /* Pinyon Script needs to be larger to be legible */
             color: var(--accent-color);
+			line-height: 1;
+		    cursor: pointer;
+		    text-decoration: none;
             letter-spacing: 0; /* Scripts don't need spacing */
         }
 
@@ -67,12 +70,12 @@
         nav {
             display: flex;
             justify-content: space-between;
-            padding: 15px 50px;
+            padding: 10px 50px;
             background-color: var(--bg-color);
             position: sticky;
             top: 0;
             z-index: 100;
-            align-items: center;
+			height: 80px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
@@ -194,9 +197,17 @@
         /* Responsive */
         @media (max-width: 768px) {
             nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
-            .hero h1 { font-size: 2.5rem; }
-            .enquiry-container { padding: 30px 20px; }
+			.logo {font-size: 2.4rem; /* Smaller logo for mobile */    }
+			.nav-links {display: none; /* Recommended: Hide links on mobile for a clean look, or use a burger menu */    }
+			.hero h1.lang-en {font-size: 3.5rem !important; /* Scale down the script font */margin-bottom: 10px;}
+		    .hero h1.lang-tc {font-size: 1.8rem !important;letter-spacing: 2px;}
+			section {padding: 60px 20px; /* Tighten up section spacing */}
+			.hero {height: 60vh; /* Shorter hero on mobile */}
+            .enquiry-container { padding: 25px 15px; }
+			
         }
+		.submit-btn {width: 100%; -webkit-appearance: none; /* Fixes iOS button styling issues */}
+		
 		/* Ensure images fit perfectly inside the portfolio boxes */
 		.portfolio-item {
 			overflow: hidden; /* Clips the image to the border radius */
@@ -314,6 +325,8 @@
 		.faq-item.active .faq-question::after {
 			content: '-';
 		}
+
+		
     </style>
 	
 </head>
@@ -614,6 +627,8 @@
                 message = `您好 Lumivelle！我想查詢婚禮留言冊服務：\n\n• 姓名: ${name}\n• 日期: ${date}\n• 地點: ${venue}\n• 時段: ${session}\n• 人數: 約 ${guests} 位`;
             }
 
+			const whatsappUrl = `https://api.whatsapp.com/send?phone=${myNumber}&text=${encodeURIComponent(message)}`;
+			
             window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, '_blank');
         });
 		
