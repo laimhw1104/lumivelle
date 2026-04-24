@@ -691,8 +691,9 @@
 			//const whatsappUrl = `https://api.whatsapp.com/send?phone=${myNumber}&text=${encodeURIComponent(message)}`;
 
 			// 4. Encode and Redirect
-			const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${myNumber}?text=${encodedMessage}`, '_blank');
+			const whatsappUrl = `https://api.whatsapp.com/send?phone=${myNumber}&text=${encodeURIComponent(message)}`;
+			    
+			window.open(whatsappUrl, '_blank'););
         });
 
 		// --- Smooth Scroll Logic for Logo and Nav Links ---
