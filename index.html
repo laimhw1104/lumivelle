@@ -633,6 +633,9 @@
         // --- Language Toggle Logic ---
         const langToggleBtn = document.getElementById('langToggle');
 		const body = document.body;
+		const menuIcon = document.getElementById('menuIcon');
+		const navLinks = document.getElementById('navLinks');
+		const whatsappForm = document.getElementById('whatsappForm');
 
         langToggleBtn.addEventListener('click', () => {
             if (body.classList.contains('lang-en-active')) {
@@ -645,45 +648,43 @@
         });
 
 		// --- Mobile Menu Toggle ---
-		const menuIcon = document.getElementById('menuIcon');
-		const navLinks = document.getElementById('navLinks');
+
 		
 		menuIcon.addEventListener('click', () => {
 		    navLinks.classList.toggle('active');
 			menuIcon.classList.toggle('open');
 		});
-		
-		// Close menu when a link is clicked
-		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-		    anchor.addEventListener('click', function (e) {
-		        const targetId = this.getAttribute('href');
-		        if (targetId === "#") return;
-		
-		        const targetElement = document.querySelector(targetId);
-		
-		        if (targetElement || targetId === "#top") {
-		            e.preventDefault();
-		            
-		            // Forcefully remove classes from BOTH elements to reset the state
-		            navLinks.classList.remove('active');
-		            menuIcon.classList.remove('open'); 
-		
-		            const offset = 80;
-		            const elementPosition = targetId === "#top" ? 0 : targetElement.offsetTop - offset;
-		
-		            window.scrollTo({
-		                top: elementPosition,
-		                behavior: 'smooth'
-		            });
-		        }
-		    });
-		});
 
+		// --- Smooth Scroll Logic for Logo and Nav Links ---
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				const targetId = this.getAttribute('href');
+				if (targetId === "#") return;
+	
+				const targetElement = document.querySelector(targetId);
+	
+				if (targetElement || targetId === "#top") {
+					e.preventDefault();
+	
+					// RESET THE MENU STATE
+					// This ensures the hamburger and menu are closed before scrolling
+					navLinks.classList.remove('active');
+					menuIcon.classList.remove('open');
+	
+					const offset = 80;
+					const elementPosition = targetId === "#top" ? 0 : targetElement.offsetTop - offset;
+	
+					window.scrollTo({
+						top: elementPosition,
+						behavior: 'smooth'
+					});
+				}
+			});
+		});		
+		
         // --- WhatsApp Logic ---
-        const whatsappForm = document.getElementById('whatsappForm');
         whatsappForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
             const myNumber = "85256074779"; // <--- CHANGE THIS TO YOUR REAL NUMBER
 
 			// 2. Get Form Values
@@ -706,37 +707,6 @@
             window.open(`https://wa.me/${myNumber}?text=${encodedMessage}`, '_blank');
         });
 
-		// --- Smooth Scroll Logic for Logo and Nav Links ---
-		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-		    anchor.addEventListener('click', function (e) {
-		        e.preventDefault();
-		        const href = this.getAttribute('href');
-		        
-		        // If the link is just "#", glide to the top of the page
-		        if (href === "#top") {
-		            window.scrollTo({
-		                top: 0,
-		                behavior: 'smooth'
-		            });
-		        } else {
-		            // If it's a section link (like #services), glide to that section
-		            const target = document.querySelector(href);
-		            if (target) {
-		                window.scrollTo({
-		                    top: target.offsetTop - 80, // Offset for your sticky header
-		                    behavior: 'smooth'
-		                });
-		            }
-		        }
-                document.getElementById('navLinks').classList.remove('active');
-		        
-		        // Close mobile menu if it's open
-                document.getElementById('menuIcon').addEventListener('click', () => {
-                    document.getElementById('navLinks').classList.toggle('active');
-                });
-		    });
-		});
-		
 		// --- FAQ Accordion Logic ---
 		document.querySelectorAll('.faq-question').forEach(question => {
 			question.addEventListener('click', () => {
