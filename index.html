@@ -688,7 +688,7 @@
                 message = `您好 Lumivelle！我想查詢婚禮留言冊服務：\n\n• 姓名: ${name}\n• 日期: ${date}\n• 地點: ${venue}\n• 時段: ${session}\n• 人數: 約 ${guests} 位`;
             }
 
-			const whatsappUrl = `https://api.whatsapp.com/send?phone=${myNumber}&text=${encodeURIComponent(message)}`;
+			//const whatsappUrl = `https://api.whatsapp.com/send?phone=${myNumber}&text=${encodeURIComponent(message)}`;
 
 			// 4. Encode and Redirect
 			const encodedMessage = encodeURIComponent(message);
