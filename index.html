@@ -650,12 +650,33 @@
 		
 		menuIcon.addEventListener('click', () => {
 		    navLinks.classList.toggle('active');
+			menuIcon.classList.toggle('open');
 		});
 		
 		// Close menu when a link is clicked
-		document.querySelectorAll('.nav-links a').forEach(link => {
-		    link.addEventListener('click', () => {
-		        navLinks.classList.remove('active');
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+		    anchor.addEventListener('click', function (e) {
+		        const targetId = this.getAttribute('href');
+		        if (targetId === "#") return;
+		
+		        const targetElement = document.querySelector(targetId);
+		
+		        if (targetElement || targetId === "#top") {
+		            e.preventDefault();
+		            
+		            // --- THE FIX IS HERE ---
+		            // Forcefully remove classes from BOTH elements to reset the state
+		            navLinks.classList.remove('active');
+		            menuIcon.classList.remove('open'); 
+		
+		            const offset = 80;
+		            const elementPosition = targetId === "#top" ? 0 : targetElement.offsetTop - offset;
+		
+		            window.scrollTo({
+		                top: elementPosition,
+		                behavior: 'smooth'
+		            });
+		        }
 		    });
 		});
 
@@ -757,10 +778,14 @@
 			<p class="lang-tc">我們精選多款 Instax 相機，以配合您婚禮的視覺風格：</p>
 			
 			<div class="tech-specs">
-				<span class="lang-en"><strong>Cameras:</strong> Mini 41, Mini Evo, Wide Evo, SQ40</span>
-              	<span class="lang-tc"><strong>相機：</strong> Mini 41, Mini Evo, Wide Evo, SQ40</span>
-				<span class="lang-en"><strong>Formats:</strong> Mini (Credit Card size), Wide (Landscape), Square (Classic 1:1)</span>
-                <span class="lang-tc"><strong>相紙格式：</strong> Mini (信用卡大小), Wide (橫向寬幅), Square (經典 1:1 正方形)</span>
+				<div class="spec-item">
+					<span class="lang-en"><strong>Cameras:</strong> Mini 41, Mini Evo, Wide Evo, SQ40</span>
+	              	<span class="lang-tc"><strong>相機：</strong> Mini 41, Mini Evo, Wide Evo, SQ40</span>
+				</div>	
+				<div class="spec-item" style="margin-top: 10px;">
+					<span class="lang-en"><strong>Formats:</strong> Mini (Credit Card size), Wide (Landscape), Square (Classic 1:1)</span>
+               		<span class="lang-tc"><strong>相紙格式：</strong> Mini (信用卡大小), Wide (橫向寬幅), Square (經典 1:1 正方形)</span>
+				</div>
 			</div>
 			
 			<div class="modal-gallery">
