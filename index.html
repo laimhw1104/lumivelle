@@ -698,7 +698,7 @@
 		        const targetID = this.getAttribute('href');
 		        
 		        // If the link is just "#", glide to the top of the page
-		        if (targetID === "#") {
+		        if (href === "#") {
 		            window.scrollTo({
 		                top: 0,
 		                behavior: 'smooth'
@@ -714,7 +714,6 @@
 		            }
 		        }
                 document.getElementById('navLinks').classList.remove('active');
-
 		        
 		        // Close mobile menu if it's open
                 document.getElementById('menuIcon').addEventListener('click', () => {
