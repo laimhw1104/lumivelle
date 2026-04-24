@@ -661,16 +661,15 @@
 		
 		        const targetElement = document.querySelector(targetId);
 		
-		        if (targetElement || targetId === "#top") {
+		        if (targetElement || targetId === "#") {
 		            e.preventDefault();
 		            
-		            // --- THE FIX IS HERE ---
 		            // Forcefully remove classes from BOTH elements to reset the state
 		            navLinks.classList.remove('active');
 		            menuIcon.classList.remove('open'); 
 		
 		            const offset = 80;
-		            const elementPosition = targetId === "#top" ? 0 : targetElement.offsetTop - offset;
+		            const elementPosition = targetId === "#" ? 0 : targetElement.offsetTop - offset;
 		
 		            window.scrollTo({
 		                top: elementPosition,
