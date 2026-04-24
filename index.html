@@ -369,7 +369,7 @@
 <body id="top" class="lang-en-active">
 
     <nav>
-		<div class="logo"><a href="#"><img src="logo1.png" alt="Lumivelle Logo"></a></div>
+		<div class="logo"><a href="#top"><img src="logo1.png" alt="Lumivelle Logo"></a></div>
         <div class="nav-right">
 			<button id="langToggle" class="lang-toggle-btn">繁體中文</button>
 			<div class="menu-icon" id="menuIcon">
@@ -661,7 +661,7 @@
 		
 		        const targetElement = document.querySelector(targetId);
 		
-		        if (targetElement || targetId === "#") {
+		        if (targetElement || targetId === "#top") {
 		            e.preventDefault();
 		            
 		            // Forcefully remove classes from BOTH elements to reset the state
@@ -669,7 +669,7 @@
 		            menuIcon.classList.remove('open'); 
 		
 		            const offset = 80;
-		            const elementPosition = targetId === "#" ? 0 : targetElement.offsetTop - offset;
+		            const elementPosition = targetId === "#top" ? 0 : targetElement.offsetTop - offset;
 		
 		            window.scrollTo({
 		                top: elementPosition,
@@ -713,7 +713,7 @@
 		        const href = this.getAttribute('href');
 		        
 		        // If the link is just "#", glide to the top of the page
-		        if (href === "#") {
+		        if (href === "#top") {
 		            window.scrollTo({
 		                top: 0,
 		                behavior: 'smooth'
