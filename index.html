@@ -672,13 +672,15 @@
             e.preventDefault();
 
             const myNumber = "85256074779"; // <--- CHANGE THIS TO YOUR REAL NUMBER
-            
+
+			// 2. Get Form Values
             const name = document.getElementById('clientName').value;
             const date = document.getElementById('weddingDate').value;
             const venue = document.getElementById('weddingVenue').value;
             const session = document.getElementById('sessionType').value;
             const guests = document.getElementById('guestCount').value;
-
+			
+			// 3. Create the Message Template based on active language
             let message = "";
             if (body.classList.contains('lang-en-active')) {
                 message = `Hello Lumivelle! I'd like to enquire about your services:\n\n• Name: ${name}\n• Date: ${date}\n• Venue: ${venue}\n• Session: ${session}\n• Guests: ${guests}`;
@@ -687,8 +689,10 @@
             }
 
 			const whatsappUrl = `https://api.whatsapp.com/send?phone=${myNumber}&text=${encodeURIComponent(message)}`;
-			
-            window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, '_blank');
+
+			// 4. Encode and Redirect
+			const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${myNumber}?text=${encodedMessage}`, '_blank');
         });
 
 		// --- Smooth Scroll Logic for Logo and Nav Links ---
