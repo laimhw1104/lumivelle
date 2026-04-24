@@ -6,14 +6,8 @@
     <title>Lumivelle | Wedding Guestbook Service Hong Kong</title>
     <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <style>
-		html {scroll-behavior: smooth;		}
+		html {scroll-behavior: smooth; }
 		
-		/* This ensures that when you click a link, the section 
-		   stops 80px before the top, so your sticky header 
-		   doesn't cover the title. */
-		section {
-		    scroll-margin-top: 80px; 
-		}
         /* --- Color Palette & Variables --- */
         :root {
             --bg-color: #FAF6F3; /* Soft cream */
@@ -41,42 +35,8 @@
         /* Language Hiding Logic */
         body.lang-en-active .lang-tc { display: none !important; }
         body.lang-tc-active .lang-en { display: none !important; }
-		
-		/* --- Logo & Headings --- */		
-		.logo { 
-            font-family: var(--font-fancy); 
-            font-size: 3.2rem; /* Pinyon Script needs to be larger to be legible */
-            color: var(--accent-color);
-			line-height: 1;
-		    cursor: pointer;
-		    text-decoration: none;
-            letter-spacing: 0; /* Scripts don't need spacing */
-        }
 
-		h1, h2, h3 { 
-            font-family: var(--font-heading);
-            font-weight: 500; 
-            margin-bottom: 0.5rem; 
-        }
-		
-		/* Hero Text Styling */
-        .hero h1.lang-en {
-            font-family: var(--font-fancy);
-            font-size: 5.5rem; /* Very large and elegant */
-            color: var(--accent-color);
-            margin-bottom: -10px; /* Pull the subtitle closer */
-        }
-        
-        /* Chinese Hero text stays Serif for elegance */
-        .hero h1.lang-tc {
-            font-family: var(--font-zh);
-			font-size: 8.1rem; /* Very large and elegant */
-            font-weight: 300;
-			color: var(--accent-color);
-            letter-spacing: 5px;
-        }		
-
-        /* --- Navigation --- */
+		/* --- Navigation --- */
         nav {
             display: flex;
             justify-content: space-between;
@@ -88,31 +48,77 @@
             z-index: 1000;
 			height: 80px;
         }
+		
+		/* --- Logo & Headings --- */		
+		.logo img { height: 100px; width: auto; cursor: pointer; }
 
-        .nav-right { display: flex; gap: 25px; align-items: center; }
-        
+		.nav-right { display: flex; gap: 25px; align-items: center; }
         .nav-links { display: flex; gap: 20px; }
-
-		.menu-icon {
-		    display: none; /* Hidden on desktop */
-		    flex-direction: column;
-		    gap: 5px;
-		    cursor: pointer;
-		}
-		
-		.menu-icon span {
-		    width: 25px;
-		    height: 2px;
-		    background-color: var(--text-main);
-		}
-		
-        .nav-links a { 
-			font-family: var(--font-heading);		
+		.nav-links a { 
             text-decoration: none; color: var(--text-main); 
             font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
-            /* transition: color 0.3s; */
+            transition: color 0.3s;
         }
-		
+        .nav-links a:hover { color: var(--accent-color); }
+
+		.menu-icon { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-icon span { width: 25px; height: 2px; background-color: var(--text-main); }
+
+		/* --- Content Sections --- */
+        section { padding: 100px 20px; max-width: 1000px; margin: 0 auto; text-align: center; scroll-margin-top: 80px; }
+
+		/* Service Cards */
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
+        .service-card { 
+            background: var(--white); padding: 40px 20px; border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-top: 3px solid var(--accent-color);
+            cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+
+		/* --- MODAL SYSTEM (Smoothed) --- */
+        .modal-overlay {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 50px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            position: relative;
+            text-align: center;
+            transform: translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* Active state for animation */
+        .modal-overlay.active { opacity: 1; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2rem; cursor: pointer; color: var(--accent-color); }
+        .modal-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 30px; }
+        .modal-gallery img { width: 100%; border-radius: 8px; }
+        
+        .tech-specs { margin: 20px 0; padding: 20px; border: 1px solid #eee; font-size: 0.9rem; text-align: left; }
+		.modal-gallery img:hover {
+		    transform: scale(1.02);
+		}
+			
 		/* --- FAQ & Form styling --- */
         .faq-question { font-family: var(--font-heading); font-weight: 600; }
         
@@ -138,6 +144,29 @@
         .lang-toggle-btn:hover { background-color: var(--accent-color); color: var(--white); }
 
         /* --- Hero Section --- */
+		/* Hero Text Styling */
+		h1, h2, h3 { 
+            font-family: var(--font-heading);
+            font-weight: 500; 
+            margin-bottom: 0.5rem; 
+        }
+		
+        .hero h1.lang-en {
+            font-family: var(--font-fancy);
+            font-size: 5.5rem; /* Very large and elegant */
+            color: var(--accent-color);
+            margin-bottom: -10px; /* Pull the subtitle closer */
+        }
+        
+        /* Chinese Hero text stays Serif for elegance */
+        .hero h1.lang-tc {
+            font-family: var(--font-zh);
+			font-size: 8.1rem; /* Very large and elegant */
+            font-weight: 300;
+			color: var(--accent-color);
+            letter-spacing: 5px;
+        }	
+		
 		.hero {
 			position: relative;
 			height: 80vh; /* Takes up 80% of the screen height */
@@ -169,19 +198,6 @@
 			color: var(--text-main);
 			font-weight: 400;
 		}
-
-        /* --- Content Sections --- */
-        section { padding: 100px 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
-
-        /* Services Grid */
-        .service-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px; margin-top: 50px;
-        }
-        .service-card {
-            background: var(--white); padding: 40px 20px; border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); border-top: 3px solid var(--accent-color);
-        }
 
         /* Portfolio */
         .portfolio-grid {
@@ -217,22 +233,6 @@
         /* --- Footer --- */
         footer { padding: 50px; text-align: center; font-size: 0.8rem; background-color: var(--white); border-top: 1px solid #EEE; }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav { padding: 0 20px; height: 70px; }
-			.logo {font-size: 2.4rem; /* Smaller logo for mobile */    }
-			.menu-icon {display: flex; /* Show hamburger on mobile */    }
-			.nav-links {display: none; position: absolute; top: 70px; left: 0; width: 100%; background-color: var(--bg-color); flex-direction: column; text-align: center; padding: 20px 0; box-shadow: 0 5px 10px rgba(0,0,0,0,0.05);}   }
-			.nav-links.active {display: flex;    }
-			.nav-links a {padding: 15px 0; border-bottom: 1px solid #eee; width: 80%; margin: 0 auto;		    }
-		    .lang-toggle-btn { font-size: 0.7rem; padding: 4px 8px; order: -1; /* This ensures the toggle stays to the left of the hamburger */		    }
-			.hero h1.lang-en { font-size: 2.6rem !important; letter-spacing: 2px;/*  margin-bottom: 10px;*/ 	    }
-		    .hero h1.lang-tc { font-size: 1.8rem !important; letter-spacing: 2px;	    }
-			section {padding: 60px 20px; /* Tighten up section spacing */    }
-		    .hero {height: 60vh; /* Shorter hero on mobile */		    }
-		    .enquiry-container {padding: 25px 15px; /* More room for the form */}
-        }
-		
 		.submit-btn {width: 100%; -webkit-appearance: none; /* Fixes iOS button styling issues */}
 		
 		/* Ensure images fit perfectly inside the portfolio boxes */
@@ -353,98 +353,22 @@
 			content: '-';
 		}
 
-		/* --- Modal Styling --- */
-		.modal-overlay {
-		    display: none; /* Hidden by default */
-		    position: fixed;
-		    top: 0; left: 0;
-		    width: 100%; height: 100%;
-		    background: rgba(255, 255, 255, 0.9); /* High-end translucent white */
-		    backdrop-filter: blur(8px); /* The "Glass" effect */
-		    z-index: 2000;
-		    justify-content: center;
-		    align-items: center;
-    		animation: fadeIn 0.4s ease-out forwards;
-			opacity: 0;
-    		transition: opacity 0.4s ease;
-		}
-		
-		.modal-content {
-		    background: var(--white);
-		    padding: 50px;
-		    max-width: 800px;
-		    width: 90%;
-		    max-height: 85vh;
-		    overflow-y: auto;
-		    border-radius: 15px;
-		    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-		    position: relative;
-		    text-align: center;
-			transform: translateY(20px);
-    		transition: transform 0.4s ease;
-		    animation: slideUp 0.5s ease-out forwards;
-		}
-
-		.modal-overlay.active {
-		    opacity: 1;
-		}
-		
-		.modal-overlay.active .modal-content {
-		    transform: translateY(0);
-		}
-		
-		@keyframes fadeIn {
-		    from { opacity: 0; }
-		    to { opacity: 1; }
-		}
-		
-		@keyframes slideUp {
-		    from { transform: translateY(20px); opacity: 0; }
-		    to { transform: translateY(0); opacity: 1; }
-		}
-		
-		.close-btn {
-		    position: absolute;
-		    top: 20px; right: 25px;
-		    font-size: 2rem;
-		    cursor: pointer;
-		    color: var(--accent-color);
-		}
-		
-		.tech-specs {
-		    margin: 20px 0;
-		    padding: 20px;
-		    border: 1px solid #eee;
-		    font-size: 0.9rem;
-		}
-		
-		.modal-gallery {
-		    display: grid;
-		    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		    gap: 15px;
-		    margin-top: 30px;
-		}
-		
-		.modal-gallery img {
-		    width: 100%;
-		    border-radius: 8px;
-		    transition: transform 0.3s;
-		}
-		
-		.modal-gallery img:hover {
-		    transform: scale(1.02);
-		}
-		
-		/* Make service cards feel clickable */
-		.service-card {
-		    cursor: pointer;
-		    transition: transform 0.3s, box-shadow 0.3s;
-		}
-		
-		.service-card:hover {
-		    transform: translateY(-10px);
-		    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-		}
+		 /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; height: 70px; }
+			.logo {font-size: 2.4rem; /* Smaller logo for mobile */    }
+			.menu-icon {display: flex; /* Show hamburger on mobile */    }
+			.nav-links {display: none; position: absolute; top: 70px; left: 0; width: 100%; background-color: var(--bg-color); flex-direction: column; text-align: center; padding: 20px 0; box-shadow: 0 5px 10px rgba(0,0,0,0,0.05);}   }
+			.nav-links.active {display: flex;    }
+			.nav-links a {padding: 15px 0; border-bottom: 1px solid #eee; width: 80%; margin: 0 auto;		    }
+		    .lang-toggle-btn { font-size: 0.7rem; padding: 4px 8px; order: -1; /* This ensures the toggle stays to the left of the hamburger */		    }
+			.hero h1.lang-en { font-size: 2.6rem !important; letter-spacing: 2px;/*  margin-bottom: 10px;*/ 	    }
+		    .hero h1.lang-tc { font-size: 1.8rem !important; letter-spacing: 2px;	    }
+			section {padding: 60px 20px; /* Tighten up section spacing */    }
+		    .hero {height: 60vh; /* Shorter hero on mobile */		    }
+		    .enquiry-container {padding: 25px 15px; /* More room for the form */}
+        }
+	
     </style>
 	
 </head>
@@ -452,16 +376,14 @@
 <body id="top" class="lang-en-active">
 
     <nav>
-		<div class="logo"><a href="#"><img src="logo1.png" alt="Lumivelle Logo" style="height: 100px; width: auto;"></a></div>
+		<div class="logo"><a href="#"><img src="logo1.png" alt="Lumivelle Logo"></a></div>
         <div class="nav-right">
 			<button id="langToggle" class="lang-toggle-btn">繁體中文</button>
-
 			<div class="menu-icon" id="menuIcon">
 	            <span></span>
 	            <span></span>
 	            <span></span>
-	        </div>
-			
+	        </div>	
 			<div class="nav-links" id="navLinks">
 	            <a href="#services" class="lang-en">Services</a><a href="#services" class="lang-tc">服務</a>
 	            <a href="#faq" class="lang-en">FAQ</a><a href="#faq" class="lang-tc">常見問題</a>
@@ -482,13 +404,13 @@
         <div class="service-grid">
             <div class="service-card" onclick="openModal('modal-instax')">
                 <h3 class="lang-en">Instax & Album</h3><h3 class="lang-tc">即影即有相機及相簿</h3>
-                <p class="lang-en">Generous supply of Fujifilm Instax films tailored to your guest count and a premium guestbook. Click to view our premium camera range and film formats.</p>
-                <p class="lang-tc">根據您的賓客人數提供充足的 Fujifilm Instax 相紙及精美留言冊。點擊查看我們的高級相機系列及相紙格式。</p>
+                <p class="lang-en">Generous supply of Fujifilm Instax films tailored to your guest count and a customized guestbook. Click to view detail.</p>
+                <p class="lang-tc">根據您的賓客人數提供充足的相紙及客製化留言相簿。點擊查看詳情。</p>
             </div>
             <div class="service-card" onclick="openModal('modal-styling')">
                 <h3 class="lang-en">Station Styling</h3><h3 class="lang-tc">專屬佈置</h3>
-                <p class="lang-en">Elegant decoration of the station to match your wedding theme. Click to see our past decoration works and setups.</p>
-                <p class="lang-tc">優雅的留言區佈置，完美配合您的婚禮主題。</p>
+                <p class="lang-en">Elegant decoration of the station to match your wedding theme. Click to view our past decoration works and setups.</p>
+                <p class="lang-tc">優雅的留言區佈置，完美配合您的婚禮主題。點擊查看我們的作品。</p>
             </div>
             <div class="service-card">
                 <h3 class="lang-en">On-Site Support</h3><h3 class="lang-tc">專業現場支援</h3>
@@ -717,9 +639,9 @@
     <script>
         // --- Language Toggle Logic ---
         const langToggleBtn = document.getElementById('langToggle');
-        const body = document.body;
 
-        langToggleBtn.addEventListener('click', function() {
+        langToggleBtn.addEventListener('click', () => {
+            const body = document.body;
             if (body.classList.contains('lang-en-active')) {
                 body.classList.replace('lang-en-active', 'lang-tc-active');
                 langToggleBtn.textContent = 'English';
@@ -773,11 +695,10 @@
 		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 		    anchor.addEventListener('click', function (e) {
 		        e.preventDefault();
-		        
-		        const href = this.getAttribute('href');
+		        const targetID = this.getAttribute('href');
 		        
 		        // If the link is just "#", glide to the top of the page
-		        if (href === "#") {
+		        if (targetID === "#") {
 		            window.scrollTo({
 		                top: 0,
 		                behavior: 'smooth'
@@ -792,11 +713,13 @@
 		                });
 		            }
 		        }
+                document.getElementById('navLinks').classList.remove('active');
+
 		        
 		        // Close mobile menu if it's open
-		        if (typeof navLinks !== 'undefined') {
-		            navLinks.classList.remove('active');
-		        }
+                document.getElementById('menuIcon').addEventListener('click', () => {
+                    document.getElementById('navLinks').classList.toggle('active');
+                });
 		    });
 		});
 		
@@ -819,36 +742,31 @@
 		}
 		
 		function closeModal(event, id) {
-		    if (event.target.classList.contains('modal-overlay') || event.target.classList.contains('close-btn')) {
-		        const modal = document.getElementById(id);
-				modal.classList.remove('active');
-		        modal.style.opacity = '0';
-		        setTimeout(() => {
-		            modal.style.display = 'none';
-		            modal.style.opacity = '1'; // Reset opacity for next opening
-		            document.body.style.overflow = 'auto';
-		        }, 400);
-		    }
-		}
+        const modal = document.getElementById(id);
+            // Close only if backdrop or X is clicked
+            if (event.target.classList.contains('modal-overlay') || event.target.classList.contains('close-btn')) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 400); // Wait for transition to finish
+            }
+        }
 		
     </script>
 		
 	<div id="modal-instax" class="modal-overlay" onclick="closeModal(event, 'modal-instax')">
 		<div class="modal-content">
-			<span class="close-btn">&times;</span>
+			<span class="close-btn" onclick="closeModal(event, 'modal-instax')">&times;</span>
 			<h2 class="lang-en">The Equipment</h2><h2 class="lang-tc">專業器材</h2>
 			<p class="lang-en">We use a curated selection of Instax cameras to suit your wedding's aesthetic:</p>
 			<p class="lang-tc">我們精選多款 Instax 相機，以配合您婚禮的視覺風格：</p>
 			
 			<div class="tech-specs">
-				<div class="spec-item">
-					<span class="lang-en"><strong>Cameras:</strong> Mini 41, Mini Evo, Wide Evo, SQ40</span>
-              		<span class="lang-tc"><strong>相機：</strong> Mini 41, Mini Evo, Wide Evo, SQ40</span>
-				</div>
-				<div class="spec-item">
-					<span class="lang-en"><strong>Formats:</strong> Mini (Credit Card size), Wide (Landscape), Square (Classic 1:1)</span>
-                	<span class="lang-tc"><strong>相紙格式：</strong> Mini (信用卡大小), Wide (橫向寬幅), Square (經典 1:1 正方形)</span>
-				</div>
+				<span class="lang-en"><strong>Cameras:</strong> Mini 41, Mini Evo, Wide Evo, SQ40</span>
+              	<span class="lang-tc"><strong>相機：</strong> Mini 41, Mini Evo, Wide Evo, SQ40</span>
+				<span class="lang-en"><strong>Formats:</strong> Mini (Credit Card size), Wide (Landscape), Square (Classic 1:1)</span>
+                <span class="lang-tc"><strong>相紙格式：</strong> Mini (信用卡大小), Wide (橫向寬幅), Square (經典 1:1 正方形)</span>
 			</div>
 			
 			<div class="modal-gallery">
@@ -861,7 +779,7 @@
 	
 	<div id="modal-styling" class="modal-overlay" onclick="closeModal(event, 'modal-styling')">
 		<div class="modal-content">
-			<span class="close-btn">&times;</span>
+			<span class="close-btn" onclick="closeModal(event, 'modal-instax')">&times;</span>
 			<h2 class="lang-en">Station Styling</h2><h2 class="lang-tc">佈置細節</h2>
 			<p class="lang-en">Every station is tailored to your floral theme and venue vibe.</p>
 			<p class="lang-tc">每一個留言區都根據您的花藝主題及場地氛圍量身訂製。</p>
