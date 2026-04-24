@@ -632,9 +632,9 @@
     <script>
         // --- Language Toggle Logic ---
         const langToggleBtn = document.getElementById('langToggle');
+		const body = document.body;
 
         langToggleBtn.addEventListener('click', () => {
-            const body = document.body;
             if (body.classList.contains('lang-en-active')) {
                 body.classList.replace('lang-en-active', 'lang-tc-active');
                 langToggleBtn.textContent = 'English';
